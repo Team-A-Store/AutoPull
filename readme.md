@@ -4,6 +4,8 @@ A Node.js tool that watches your GitHub repositories and automatically updates y
 
 When new code is pushed to GitHub, it automatically downloads the changes and can restart the resource in TXAdmin - no manual intervention needed, works for private repositories.
 
+![screenshot](https://github.com/user-attachments/assets/da566664-9784-4122-8b36-cfed7bb6b5bf)
+
 > [!WARNING]  
 > These options require advanced knowledge of TXAdmin and server management.
 
