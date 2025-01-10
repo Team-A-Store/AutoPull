@@ -1,0 +1,2 @@
+node autopull.js
+pause
