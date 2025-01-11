@@ -1,2 +1,2 @@
-nodemon autopull.js
+npm start
 pause
