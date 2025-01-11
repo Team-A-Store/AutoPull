@@ -114,5 +114,5 @@ for (const resourceName in config.resources) {
 
 // Start the server
 app.listen(config.port, () => {
-    console.log(`AutoPull V2 server is running on port ${config.port}`);
+    console.log(`AutoPull v2.0.0 server is running on port ${config.port}`);
 });
