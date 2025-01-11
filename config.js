@@ -11,6 +11,21 @@ module.exports = {
             txAdminRefresh: true,
             txAdminEnsure: true,
         },
+        'a-poi': {
+            path: "C:/TheATeam/txData/qbcore.base/resources/[a]/a-poi",
+            txAdminRefresh: true,
+            txAdminEnsure: true,
+        },
+        'a-space': {
+            path: "C:/TheATeam/txData/qbcore.base/resources/[a]/a-space",
+            txAdminRefresh: true,
+            txAdminEnsure: true,
+        },
+        'a-nades': {
+            path: "C:/TheATeam/txData/qbcore.base/resources/[a]/a-nades",
+            txAdminRefresh: true,
+            txAdminEnsure: true,
+        },
         'autopull': {
             path: "C:/TheATeam/AutoPull",
             txAdminRefresh: false,
