@@ -46,7 +46,7 @@ const PSTXAdminAutomationDelay = `
 `;
 
 // Webhook endpoints
-let activePulls = {};
+let activePulls = false;
 for (const resourceName in config.resources) {
     const resourceData = config.resources[resourceName];
     // User input is validated thanks to the route name
@@ -56,12 +56,12 @@ for (const resourceName in config.resources) {
         res.send('Ok Github!');
         console.log('Webhook received for ' + resourceName);
         // Run the git pull command with cwd
-        while (activePulls[resourceName]) {
+        while (activePulls) {
             console.log('Waiting for the last pull to finish for ' + resourceName)
             await new Promise(resolve => setTimeout(resolve, 1000));
         }
         // Pull the new changes:
-        activePulls[resourceName] = true;
+        activePulls = true;
         exec('git pull origin master', { cwd: resourceData.path }, (err, stdout, stderr) => {
             if (err) {
                 console.error(`Error: ${err} for ${resourceName}`);
@@ -98,11 +98,11 @@ for (const resourceName in config.resources) {
                     ]);
                     ps.on('error', (err) => {
                         console.error(`Error starting PowerShell: ${err} for ${resourceName}`);
-                        activePulls[resourceName] = false;
+                        activePulls = false;
                     });
                     ps.on('exit', (code) => {
                         console.log(`PowerShell process exited with code ${code} for ${resourceName}`);
-                        activePulls[resourceName] = false;
+                        activePulls = false;
                     });
                     if (resourceData.txAdminRefresh && resourceData.txAdminEnsure) {
                         console.log("Executed TXAdmin Hot Reload for " + resourceName);
