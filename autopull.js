@@ -49,6 +49,7 @@ const PSTXAdminAutomationDelay = `
 let activePulls = {};
 for (const resourceName in config.resources) {
     const resourceData = config.resources[resourceName];
+    // User input is validated thanks to the route name
     app.post('/autopull/' + resourceName, async (req, res) => {
         // Verify that the request is from GitHub
         if (req.headers['x-github-event'] !== 'push') return res.status(400).send('Not a push event');
