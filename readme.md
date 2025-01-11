@@ -15,9 +15,7 @@ When new code is pushed to GitHub, it automatically downloads the changes and ca
 npm install
 ```
 
-2. Rename `config.example.js` to `config.js` and customize it to match your setup
-
-3. Start the server:
+2. Start the server:
 
 ```bash
 npm start
