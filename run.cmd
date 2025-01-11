@@ -1,2 +1,2 @@
-node autopull.js
+nodemon autopull.js
 pause
