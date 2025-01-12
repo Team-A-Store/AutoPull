@@ -26,8 +26,8 @@ module.exports = {
             txAdminRefresh: true,
             txAdminEnsure: true,
         },
-        'a-films': {
-            path: "C:/TheATeam/txData/qbcore.base/resources/[a]/a-films",
+        'a-film': {
+            path: "C:/TheATeam/txData/qbcore.base/resources/[a]/a-film",
             txAdminRefresh: true,
             txAdminEnsure: true,
         },
