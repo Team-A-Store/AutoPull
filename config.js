@@ -26,11 +26,11 @@ module.exports = {
             txAdminRefresh: true,
             txAdminEnsure: true,
         },
-        // 'a-film': {
-        //     path: "C:/TheATeam/txData/qbcore.base/resources/[a]/a-film",
-        //     txAdminRefresh: true,
-        //     txAdminEnsure: true,
-        // },
+        'a-film': {
+            path: "C:/TheATeam/txData/qbcore.base/resources/[a]/a-film",
+            txAdminRefresh: true,
+            txAdminEnsure: true,
+        },
         'autopull': {
             path: "C:/TheATeam/AutoPull",
             txAdminRefresh: false,
