@@ -5,8 +5,8 @@ const config = require('./config.js');
 const app = express();
 
 // Create WebSocket server
-const wss = new WebSocketServer({ port: 3001 });
-console.log('WebSocket server running on port 3001');
+const wss = new WebSocketServer({ port: 8424 });
+console.log('WebSocket server running on port 8424');
 
 wss.on('connection', (ws) => {
     console.log('TxAdmin console connected');
@@ -34,7 +34,6 @@ config.folders.forEach(folder => {
     });
 });
 
-app.listen(3000, () => {
-    console.log('HTTP server running on port 3000');
+app.listen(8425, () => {
     console.log('Now paste the script from README.md into your txAdmin console');
 });

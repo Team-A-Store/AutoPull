@@ -24,13 +24,30 @@ npm run non-vps-version
 
 4. Load the following script in txAdmin:
 ```js
-const ws = new WebSocket('ws://localhost:3000');
+const ws = new WebSocket('ws://localhost:8424');
+function sendCommand(command) {
+    console.log(`Running command: ${command}`);
+    const input = document.querySelector('input[placeholder="Type a command..."]');
+    input.value = command;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    ['keydown', 'keypress', 'keyup'].forEach(eventType => {
+        input.dispatchEvent(new KeyboardEvent(eventType, {
+            key: 'Enter',
+            code: 'Enter',
+            keyCode: 13,
+            which: 13,
+            bubbles: true
+        }));
+    });
+}
 ws.onopen = () => {
     console.log("Connected to AutoPull!")
     ws.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        if (data.action === 'ensure') {
+        if (data.type === 'ensure') {
             console.log(`Ensuring resource: ${data.resource}`);
+            sendCommand('refresh');
+            setTimeout(() => sendCommand(`ensure ${data.resource}`), 500);
         }
     };
 };
