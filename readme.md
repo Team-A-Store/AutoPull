@@ -147,3 +147,7 @@ http://serverpublicip:8424/autopull/example-resource
 ```
 
 **Note:** You might need to open ports on your VPS to allow external connections to your webhook endpoint.
+
+## UPDATE: Added non VPS version
+
+Checkout the `non-vps-version` folder for more information
