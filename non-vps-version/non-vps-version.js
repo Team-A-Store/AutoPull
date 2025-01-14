@@ -2,6 +2,7 @@ const express = require('express');
 const { WebSocketServer } = require('ws');
 const chokidar = require('chokidar');
 const config = require('./config.js');
+const fs = require('fs');
 const app = express();
 
 // Create WebSocket server
@@ -17,20 +18,40 @@ wss.on('connection', (ws) => {
 // Setup watcher for each directory
 config.folders.forEach(folder => {
     console.log(`Watching ${folder}`);
+    let lastContent = {};
+    
     chokidar.watch(folder, {
         ignored: /(^|[\/\\])\../,
         persistent: true,
         ignoreInitial: true
     }).on('all', (event, path) => {
-        const resourceName = folder.split('/').pop();
-        console.log(`Change detected in ${resourceName}: ${event} ${path}`);
-        // Broadcast to all connected clients
-        wss.clients.forEach(client => {
-            client.send(JSON.stringify({
-                type: 'ensure',
-                resource: resourceName
-            }));
-        });
+        // Only proceed for file changes/additions
+        if (event !== 'change' && event !== 'add') return;
+
+        // Read file content
+        try {
+            const content = fs.readFileSync(path, 'utf8');
+            // if (lastContent[path] === content) { // UNCOMMENT THESE 3 LINES IF YOU WANT TO DISABLE SENDING UPDATES WHEN FILE HASNT REALLY CHANGED AGAIN AND AGAIN - BUT IT CAN BE USEFUL TO RESTART FAST WITH SAVING AGAIN AND AGAIN IN SOME CASES
+            //     return; // Content hasn't changed, ignore
+            // }
+            lastContent[path] = content;
+
+            const resourceName = folder.split('/').pop();
+            console.log(`Change detected in ${resourceName}: ${event} ${path}`);
+            
+            // Broadcast to all connected clients
+            let clientCount = 0;
+            wss.clients.forEach(client => {
+                clientCount += 1;
+                client.send(JSON.stringify({
+                    type: 'ensure',
+                    resource: resourceName
+                }));
+            });
+            if (clientCount === 0) console.warn('No clients connected - changes detected but no txAdmin to notify');
+        } catch (err) {
+            console.error(`Error reading file ${path}:`, err);
+        }
     });
 });
 

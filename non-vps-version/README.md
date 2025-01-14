@@ -24,7 +24,7 @@ npm run non-vps-version
 
 4. Load the following script in txAdmin:
 ```js
-const ws = new WebSocket('ws://localhost:8424');
+const wsAddress = 'ws://localhost:8424'; // Port can be configured manually on non-vps-version.js
 function sendCommand(command) {
     console.log(`Running command: ${command}`);
     const input = document.querySelector('input[placeholder="Type a command..."]');
@@ -40,17 +40,27 @@ function sendCommand(command) {
         }));
     });
 }
-ws.onopen = () => {
-    console.log("Connected to AutoPull!")
-    ws.onmessage = (event) => {
+setAutoPullEvents();
+function setAutoPullEvents() {
+    autoPullWS = new WebSocket(wsAddress);
+    autoPullWS.onopen = () => {
+        console.log("Connected to AutoPull!")
+    };
+    autoPullWS.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.type === 'ensure') {
             console.log(`Ensuring resource: ${data.resource}`);
             sendCommand('refresh');
-            setTimeout(() => sendCommand(`ensure ${data.resource}`), 500);
+            setTimeout(() => sendCommand(`ensure ${data.resource}`), 1);
         }
     };
-};
+    autoPullWS.onclose = () => {
+        console.log("Connection lost, attempting to reconnect...");
+        setTimeout(() => setAutoPullEvents(), 3000);
+    };
+}
 ```
+
+**Tip: To automate the process of pasting it to txAdmin every time simply use [this](https://chromewebstore.google.com/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld?hl=en&pli=1)**
 
 5. Changes done to folders listed in `config.js` will trigger a refresh and ensure for that folder name in txAdmin!
