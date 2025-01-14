@@ -11,7 +11,7 @@ This tool automatically triggers resource reloads in FiveM when files are change
 ## Setup
 
 1. Install Node.js if not already installedx
-2. Modify the `config.js` file with the following structure:
+2. Create the `config.js` file with the following structure:
 ```js
 module.exports = {
   folders: [
