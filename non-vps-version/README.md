@@ -1,8 +1,12 @@
 # FiveM Hot Reload System
 
+> 🚀 **Exciting News!** This version includes experimental code that will soon be migrated to the VPS version! Using WebSocket technology with auto-reconnect capabilities, it can write to the txAdmin console even when the window is minimized or unfocused. No more need to keep txAdmin in focus! 🎯
+
 This tool automatically triggers resource reloads in FiveM when files are changed.
 
 **Designed for local usage without a VPS.**
+
+![AutoPull New Demo](example.gif)
 
 ## Setup
 
@@ -17,7 +21,7 @@ module.exports = {
 };
 ```
 
-3. Start the web server by running `node server.js` or:
+3. Start the web server by running `node non-vps-version.js` or:
 ```bash
 npm run non-vps-version
 ```

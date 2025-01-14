@@ -9,6 +9,12 @@ When new code is pushed to GitHub, it automatically downloads the changes and ca
 > [!WARNING]  
 > These options require advanced knowledge of TXAdmin and server management.
 
+## UPDATE: Added non VPS version
+
+Checkout the [non-vps-version](https://github.com/Team-A-Store/AutoPull/tree/master/non-vps-version) folder for more information
+
+> 🚀 **Exciting News!** The *Non VPS Version* includes experimental code that will soon be migrated to the VPS version! Using WebSocket technology with auto-reconnect capabilities, it can write to the txAdmin console even when the window is minimized or unfocused. No more need to keep txAdmin in focus! 🎯
+
 ## Setup
 
 1. Install dependencies:
@@ -147,7 +153,3 @@ http://serverpublicip:8424/autopull/example-resource
 ```
 
 **Note:** You might need to open ports on your VPS to allow external connections to your webhook endpoint.
-
-## UPDATE: Added non VPS version
-
-Checkout the `non-vps-version` folder for more information
