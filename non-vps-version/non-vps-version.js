@@ -14,7 +14,14 @@ wss.on('connection', (ws) => {
     ws.on('error', console.error);
     ws.on('close', () => console.log('TxAdmin console disconnected'));
 });
-
+// Check if folders exist before watching
+config.folders = config.folders.filter(folder => {
+    if (!fs.existsSync(folder)) {
+        console.warn(`Folder not found, skipping: ${folder}`);
+        return false;
+    }
+    return true;
+});
 // Setup watcher for each directory
 config.folders.forEach(folder => {
     console.log(`Watching ${folder}`);
